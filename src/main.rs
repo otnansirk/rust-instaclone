@@ -1,10 +1,11 @@
-use actix_web::{App, HttpServer, HttpResponse, web};
-use actix_web::http::{StatusCode};
-
-use routes::base_router;
-use std::io::Result;
 
 mod routes;
+
+use actix_web::{App, HttpServer, HttpResponse, web};
+use actix_web::http::{StatusCode};
+use std::io::Result;
+
+use routes::base_router;
 
 async fn not_found() -> HttpResponse {
     HttpResponse::build(StatusCode::NOT_FOUND)

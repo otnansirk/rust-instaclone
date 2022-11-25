@@ -1,24 +1,26 @@
-use actix_web::{get, HttpResponse, web};
-use serde::Serialize;
+use std::fs;
+use std::io::Read;
 
-
-#[derive(Serialize)]
-struct ReelsList {
-    caption: String
+use actix_web::{HttpResponse};
+use actix_web::web::{self, Json};
+use serde::{Serialize, Deserialize};
+#[derive(Deserialize, Serialize)]
+struct Reels {
+    caption: String,
+    r#type: String
+}
+async fn list() -> String {
+    format!("asdsadasd")
 }
 
-#[get("")]
-async fn get_list() -> HttpResponse {
-    let data: Vec<ReelsList> = vec![ReelsList{
-        caption: "Reels caption".to_string()
-    }];
-
-    HttpResponse::Ok().json(data)
+async fn create(req: Json<Reels>) -> HttpResponse {
+    HttpResponse::Ok().json(req)
 }
 
 pub fn init_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("reels")
-            .service(get_list)
+            .route("", web::get().to(list))
+            .route("", web::post().to(create))
     );
 }
